@@ -1,44 +1,57 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package viva1;
 
-package viva.pkg1;
 import java.util.Scanner;
 
+/**
+ *
+ * @author User
+ */
 public class Viva1Q4 {
     public static void main(String[] args) {
-        Scanner s = new Scanner (System.in);
-        System.out.print("Enter your password: ");
-        String password = s.next();
-        boolean hasUpperCase = false, hasLowerCase = false, hasDigit=false, hasSpecialChar=false;
-        if (password.length()>=8){
-            for (int i =0;i<password.length();i++){
-                char character = password.charAt(i);
-           //     Scanner special = new Scanner(password);
-                
-                if (Character.isUpperCase(character)){
-                    hasUpperCase = true;
-                }
-                else if(Character.isLowerCase(character)){
-                    hasLowerCase = true;
-                }
-                else if (Character.isDigit(character)){
-                    hasDigit = true;
-                }
-                else if((!Character.isLetterOrDigit(character))&&(!Character.isWhitespace(character))){
-                    hasSpecialChar = true;
-                    }
-           if(hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar ){
-                    break;
-                }
-            }  
-        }else 
-            System.out.println("Not enough letter");
-        System.out.println(hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar?"Strong Password":"Weak");
-            
-                
-            
-                
+        Scanner s = new Scanner(System.in);
         
-                
-}
-     
+        String password;
+        
+        System.out.print("Enter a string: ");
+        password = s.nextLine();
+        
+        boolean containLowerCase = false;
+        boolean containUpperCase = false;
+        boolean containSpecialChar = false;
+        boolean containDigit = false;
+        
+        String specialChars = "!@#$%^&*()-+";
+        char currentChar;
+        
+        for (int i =0; i < password.length(); i++) {
+            currentChar = password.charAt(i);
+            if (Character.isLowerCase(currentChar)) {
+                containLowerCase = true; 
+            }
+            else if (Character.isUpperCase(currentChar)) {
+                containUpperCase = true;
+            }
+            else if (specialChars.contains(String.valueOf(currentChar))) {
+                containSpecialChar = true;
+            }
+            else if (Character.isDigit(currentChar)) {
+                containDigit = true;
+            }
+        }
+        
+        if (containLowerCase && containUpperCase && containSpecialChar && containDigit && password.length() >= 8) {
+                System.out.println("Strength of password: Strong");
+            }
+            else if (containLowerCase && containUpperCase && containSpecialChar && password.length() >= 6) {
+                System.out.println("Strength of password: Moderate");
+            }
+            else {
+                System.out.println("Strength of password: Weak");
+            }
+    }
     
 }
