@@ -13,21 +13,19 @@ public class VIVA2Q2 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
-        System.out.print("Enter the size of the first array: ");
-        int size1 = input.nextInt();
-        double[] array1 = new double[size1];
-        System.out.println("Enter elements for the first array:");
-        for (int i = 0; i < size1; i++) {
-            array1[i] = input.nextDouble();
+        System.out.print("Enter Array1: ");
+        String[] array1Input = input.nextLine().split(",");
+        double[]array1= new double[array1Input.length];
+        for (int i = 0; i < array1Input.length ; i++) {
+            array1[i] = Double.valueOf(array1Input[i]);
         }
 
         
-        System.out.print("Enter the size of the second array: ");
-        int size2 = input.nextInt();
-        double[] array2 = new double[size2];
-        System.out.println("Enter elements for the second array:");
-        for (int i = 0; i < size2; i++) {
-            array2[i] = input.nextDouble();
+        System.out.print("Enter Array2: ");
+        String[] array2Input = input.nextLine().split(",");
+         double[]array2= new double[array2Input.length];
+        for (int i = 0; i < array2Input.length; i++) {
+            array2[i] = Double.valueOf(array2Input[i]);
         }
         System.out.printf("%.3f", calculateMedian(array1,array2));
         System.out.println();
