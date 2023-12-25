@@ -1,92 +1,110 @@
-
 package viva3;
 
-import java.util.Random;
-
 public class Phantom {
-    private double accuracy;
-    private double critRate;
-    
+
+    public double accuracy;
+    public double critRate;
+
     public Phantom() {
-        this.accuracy = 1.00;
-        this.critRate = 1.00;
+        accuracy = 1.00;
+        critRate = 1.00;
     }
-    
+
     public Phantom(double accuracy, double critRate) {
-        if (accuracy > 0.00 && accuracy < 1.00 && critRate > 0.00 && critRate < 1.00) {
+        if (accuracy >= 0.00 && accuracy <= 1.00 && critRate >= 0.00 && critRate <= 1.00) {
+            this.accuracy = accuracy;
+            this.critRate = critRate;
+        } else {
+            System.out.println("Invalid input values. Setting default values.");
+
             this.accuracy = accuracy;
             this.critRate = critRate;
         }
     }
-    
+
     public double getAccuracy() {
-        return accuracy;
+        return this.accuracy;
+
     }
-    
+
     public void setAccuracy(double accuracy) {
-        if (accuracy > 0.00 && accuracy < 1.00) {
+        if (accuracy >= 0 && accuracy <= 1) {
             this.accuracy = accuracy;
+        } else {
+            System.out.println("Invalid accuracy");
         }
     }
-    
+
     public double getCritRate() {
-        return critRate;
+        return this.critRate;
     }
-    
+
     public void setCritRate(double critRate) {
-        if (critRate > 0.00 && critRate < 1.00) {
+        if (critRate >= 0 && critRate <= 1) {
             this.critRate = critRate;
+        } else {
+            System.out.println("Invalid critRate");
         }
     }
-    
-    public int damage(BlackMage blackmage) {
-        int totalHp = blackmage.getHp();
-        double totalEffectiveAccuracy = accuracy * (1 - blackmage.getEvasion());
-        double totalEffectiveCritRate = critRate - blackmage.getCritResistance();
-        int damageValue = 0;
-        
-        Random r = new Random();
-        
-        while (totalHp > 0) {
-            double rand = r.nextDouble();
-            if (rand < totalEffectiveAccuracy) {
-                if (rand < totalEffectiveCritRate) {
-                    damageValue = 4; // Critical hit
-                    totalHp -= 4;
+
+    public int damage(BlackMage blackMage) {
+        int totalDamage = 0;
+        int totalHP = blackMage.getHP();
+
+        while (totalHP > 0) {
+
+            double totalEffAccuracy = accuracy * (1-blackMage.getEvasion());
+            double totalEffCritRate = blackMage.getCritResistance();
+
+            double randomValue = Math.random(); // Random value between 0.0 and 1.0
+
+            if (randomValue < totalEffAccuracy) {
+                if (randomValue < totalEffCritRate) {
+                    System.out.println("[CRIT] Phantom has dealt 4 damage to the "
+                            + "Black Mage (" + (totalHP - 4) + "/100)");
+                    totalHP  -= 4;
                 } else {
-                    damageValue = 2; // Normal hit
-                    totalHp -= 2;
+                    System.out.println("[NORM] Phantom has dealt 2 damage to the "
+                            + "Black Mage (" + (totalHP - 2) + "/100)");
+                    totalHP -= 2;
                 }
             } else {
-                damageValue = 0; // Missed hit
-            }
-            break;
-        }
-        return damageValue;
-    }
-    
-    public String toString(BlackMage blackmage) {
-        int remainingHp = blackmage.getHp();
-
-        System.out.println("The epic battle begins!");
-
-        while (remainingHp > 0) {
-            int damage = damage(blackmage);
-            remainingHp -= damage;
-            if (remainingHp < 0) {
-                remainingHp = 0;
-            }
-
-            if (damage == 4) {
-                System.out.println("[CRIT] Phantom has dealt " + damage + " damage to the Black Mage (" + remainingHp + "/100)");
-            } else if (damage == 2) {
-                System.out.println("[NORM] Phantom has dealt " + damage + " damage to the Black Mage (" + remainingHp + "/100)");
-            } else {
-                System.out.println(("[MISS] Phantom has dealt " + damage + " damage to the Black Mage (" + remainingHp + "/100)"));
+                System.out.println("[MISS] Phantom has dealt 0 damage to the "
+                            + "Black Mage (" + totalHP  + "/100)");
             }
         }
-        
-        System.out.println("The Black Mage is defeated...");
-        return "";
+        return totalDamage;
     }
+
+    @Override
+    public String toString() {
+        return "The epic battle begins!\n";
+    }
+
+ public static class BlackMage {
+
+        private int hp;
+        private double evasion;
+        private double critResistance;
+
+        public BlackMage() {
+            this.hp = 100;
+            this.evasion = 0.05;
+            this.critResistance = 0.1;
+        }
+
+        public int getHP() {
+            return hp;
+        }
+
+        public double getEvasion() {
+            return evasion;
+        }
+
+        public double getCritResistance() {
+            return critResistance;
+        }
+
+    }
+
 }
