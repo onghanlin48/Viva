@@ -68,6 +68,30 @@ public class Library {
 
     }
     
+    public boolean borrowBook(String isbn){
+        int digit =0;
+        for(int i=isbn.length()-1;i<=isbn.length()-2;i--){
+            digit *=10;
+            digit += Integer.parseInt(String.valueOf(isbn.charAt(i)));
+        }
+        if(isPrime(digit)){
+            return false;
+        }
+        return true;
+        
+    }
+    
+    public boolean isPrime(int digit){
+        if(digit == 1){
+            return false;
+        }
+        for(int i=2;i<digit;i++){
+            if(digit%i==0){
+                return false;
+            }
+        }return true;
+    }
+    
     public void sortBook(){
         for(int pass =0;pass < numOfBooks;pass++){
             for(int i=0;i<numOfBooks-1;i++){
@@ -83,9 +107,9 @@ public class Library {
     
     public void displayBooks(){
         for (int i=0;i<numOfBooks;i++){
-            System.out.println("Title: "+ books[i].getBookTitle()+
-                    "  Author: "+books[i].getAuthor()+
-                    "  ISBN: "+books[i].getISBN());
+            System.out.println("- Title: "+ books[i].getBookTitle()+
+                    "\n  Author: "+books[i].getAuthor()+
+                    "\n  ISBN: "+books[i].getISBN());
         }
     }
 }

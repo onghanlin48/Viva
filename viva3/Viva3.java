@@ -1,6 +1,4 @@
-
 package viva3;
-
 
 public class Viva3 {
 
@@ -9,54 +7,58 @@ public class Viva3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Phantom p1 = new Phantom (1,1);
-        
-        Phantom.BlackMage blackMage = new Phantom.BlackMage();
-        
-        System.out.println(p1.toString());
-        System.out.println(p1.damage(blackMage)+"\nThe Black Mage is defeated.");
-    
-        System.out.println("\n");
-        
-        
-    Library library = new Library();
-    library.addBook(new Book("The Sorcerer's Stone", "J.K. Rowling", "1234567891"));
-        library.addBook(new Book("The Chamber of Secrets", "J.K. Rowling", "2345678913"));
-        library.addBook(new Book("The Prisoner of Azkaban", "J.K. Rowling", "3456789127"));
-        library.addBook(new Book("The Goblet of Fire", "J.K. Rowling", "4567891231"));
-        library.addBook(new Book("The Order of the Phoenix", "J.K. Rowling", "5678912347"));
-        library.addBook(new Book("The Half-Blood Prince", "J.K. Rowling", "6789123453"));
-        library.addBook(new Book("The Deathly Hallows", "J.K. Rowling", "7891234567"));
+        Phantom p1 = new Phantom(1, 1);
 
+        Phantom.BlackMage blackMage = new Phantom.BlackMage();
+
+        System.out.println(p1.toString());
+        System.out.println(p1.damage(blackMage) + "\nThe Black Mage is defeated.");
+
+        System.out.println("\n");
+
+        Library library = new Library();
+        library.addBook(new Book("The Standard Book of Spells", "Miranda Goshawk", "9452297"));
+        library.addBook(new Book("Advanced Potion-Making", "Libatius Borage", "4826972"));
+        library.addBook(new Book("Fantastic Beasts and Where to Find Them", "Newt Scamander", "1564815"));
+        library.addBook(new Book("The Dark Forces: A Guide to Self-Protection", "Quirinus Quirrell", "1891568"));
+        library.addBook(new Book("Forbidden Spells", "Salazar Slytherin", "7134567"));
         // Display all books in the library
         System.out.println("Books in the library:");
         library.displayBooks();
 
         // Search for books by title
-        System.out.println("\nSearch for books by title:");
-       Book [] searchResults = library.searchByTitle("The Sorcerer's Stone");
+        System.out.println("\nSearching for books by title:");
+        Book[] searchResults = library.searchByTitle("The Standard Book of Spells");
         for (Book result : searchResults) {
             System.out.println("Title: " + result.getBookTitle() + ", Author: " + result.getAuthor() + ", ISBN: " + result.getISBN());
         }
 
         // Search for books by author
-        System.out.println("\nSearch for books by author:");
-        searchResults = library.searchByAuthor("J.K. Rowling");
+        System.out.println("\nSearching for books by author:");
+        searchResults = library.searchByAuthor("Miranda Goshawk");
         for (Book result : searchResults) {
-            System.out.println("Title: " + result.getBookTitle() + ", Author: " + result.getAuthor() + ", ISBN: " + result.getISBN());
+            System.out.println("- Title: " + result.getBookTitle() + "\n  Author: " + result.getAuthor() + "\n  ISBN: " + result.getISBN());
         }
 
-        // Sort books by title and display
-        library.sortBook();
-        System.out.println("\nBooks after sorting by title:");
-        library.displayBooks();
+        // Check whether can borrow
+        System.out.println("\nChecking whether can borrow");
+        boolean canBorrow = library.borrowBook("9452297");
+        if (canBorrow) {
+            System.out.println("\nYou've borrowed a book!");
+        } else {
+            System.out.println("\nSorry, this book is not available for borrowing");
 
-        // Remove a book from the library
-        System.out.println("\nRemove a book from the library:");
-        library.removeBook("3456789127");
-        library.displayBooks();
-    
-        
+// Sort books by title and display
+            library.sortBook();
+            System.out.println("\nBooks after sorting by title:");
+            library.displayBooks();
+
+            // Remove a book from the library
+            System.out.println("\nRemove a book from the library:");
+            library.removeBook("3456789127");
+            library.displayBooks();
+
+        }
+
     }
-    
 }
