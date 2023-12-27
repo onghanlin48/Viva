@@ -203,7 +203,7 @@ public class VIVA3Q2 {
                         while (check) {
                             System.out.println("1.Searching for books by author: ");
                             System.out.println("2.Searching for books by title: ");
-                            System.out.println("2.Searching for books by ISBN: ");
+                            System.out.println("3.Searching for books by ISBN: ");
                             System.out.println("Back (-1)");
                             System.out.print("Choose (1,2,3,-1)");
                             choose = scanner.nextInt();
