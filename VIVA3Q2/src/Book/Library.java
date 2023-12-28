@@ -63,6 +63,7 @@ public class Library {
             if (books[i] != null && books[i].getAuthor().equals(author)) {
                 // Shift remaining elements to fill the gap
                 System.arraycopy(books, i + 1, books, i, bookCount - i - 1);
+                bookCount--;
                 System.out.println(books[i].getTitle() + " Remove");
                 check = false;
             }
